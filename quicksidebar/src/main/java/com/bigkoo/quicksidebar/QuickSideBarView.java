@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.bigkoo.quicksidebar.listener.OnQuickSideBarTouchListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -100,7 +101,11 @@ public class QuickSideBarView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth();
-        mItemStartY = (mHeight - mLetters.size()*mItemHeight)/2;
+        resetItemStartY();
+    }
+
+    private void resetItemStartY() {
+        mItemStartY = (mHeight - mLetters.size() * mItemHeight) / 2;
     }
 
     @Override
@@ -164,7 +169,11 @@ public class QuickSideBarView extends View {
      * @param letters
      */
     public void setLetters(List<String> letters) {
+        if (letters == null) {
+            letters = new ArrayList<>();
+        }
         this.mLetters = letters;
+        resetItemStartY();
         invalidate();
     }
 }
